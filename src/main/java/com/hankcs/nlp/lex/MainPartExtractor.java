@@ -1,11 +1,11 @@
 package com.hankcs.nlp.lex;
 
+import com.hankcs.hanlp.HanLP;
+import com.hankcs.hanlp.seg.common.Term;
 import edu.stanford.nlp.ling.Word;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.trees.*;
 import edu.stanford.nlp.trees.international.pennchinese.ChineseTreebankLanguagePack;
-import org.ansj.domain.Term;
-import org.ansj.splitWord.analysis.ToAnalysis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -207,11 +207,11 @@ public class MainPartExtractor
         //分词
         LOG.info("正在对短句进行分词：" + sentence);
         List<Word> wordList = new LinkedList<>();
-        List<Term> terms = ToAnalysis.parse(sentence);
+        List<Term> terms = HanLP.segment(sentence);
         StringBuffer sbLogInfo = new StringBuffer();
         for (Term term : terms)
         {
-            Word word = new Word(term.getName());
+            Word word = new Word(term.word);
             wordList.add(word);
             sbLogInfo.append(word);
             sbLogInfo.append(' ');
